@@ -1,0 +1,31 @@
+
+<input type='file' onchange="angular.element(this).scope().parseCsvFile(this)"/>
+
+<br />
+<div id="myProgress" ng-if="showProgressBar">
+    <div id="myBar"></div>
+</div>  
+<hr />
+<div ng-if="show"> 
+    <button type="button" data-toggle="modal" ng-click="upload()"  data-target="#myModal">Upload</button>
+</div>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Customer</h4>
+        </div>
+        <div class="modal-body">
+            <img class="loaderImg" src="images/user.png" style="width:90px;height:90px"/>
+            <p>Parsing...</p>
+            {{fileName}}....<img class="loaderImg" ng-if="showLoader" src="images/loader.gif"/>
+            <div ng-if="showMsg">{{successMsg}}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
