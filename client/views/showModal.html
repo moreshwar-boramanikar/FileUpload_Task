@@ -1,0 +1,11 @@
+
+<div class="modal-body" style="text-align: center">
+    <h3 class="modal-title">Customer</h3>
+    <img class="userIcon" src="images/user.png" />
+    <p>Parsing...</p>
+    {{fileName}}....<img class="loaderImg" ng-if="showLoader" src="../images/loader.gif"/>
+    <div ng-if="showMsg">{{successParseMsg}}</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+</div>

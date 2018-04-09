@@ -18,19 +18,16 @@ header {
     background: gray;
     color:white;
 }
+.userIcon{
+    width: 90px; 
+    height:90px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .loaderImg{
     width: 60px; 
-    height:50px
-}
-#myProgress {
-    width: 100%;
-    background-color: #ddd;
-}
-
-#myBar {
-    width: 1%;
-    height: 30px;
-    background-color: #4CAF50;
+    height:50px;
 }
 
 @media all {

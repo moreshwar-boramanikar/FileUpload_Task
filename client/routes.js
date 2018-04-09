@@ -1,4 +1,4 @@
-var app = angular.module("fileupload", ['ui.router']);
+var app = angular.module("fileupload", ['ui.router', 'ui.bootstrap']);
 
 app.config(function($stateProvider) {
 
