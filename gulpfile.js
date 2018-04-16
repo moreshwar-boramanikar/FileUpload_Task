@@ -42,4 +42,3 @@ gulp.task('clean', function () {
 });
 
 gulp.task('default', [ 'html', 'css', 'js','start']);
-
