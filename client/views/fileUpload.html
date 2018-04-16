@@ -1,12 +1,18 @@
 <hr />
-<input type='file' onchange="angular.element(this).scope().parseCsvFile(this)"/>
-<br />
-<div class="progress" ng-if="showProgressBar">
-  <div class="progress-bar progress-bar-striped active" id="progressbar" role="progressbar" style="width:0%">
-    {{showProgressWidth}}%
+<div ng-controller="fileUploadController as fileUpCtrl">
+  <input type='file' onChange="angular.element(this).scope().parseCsvFile(this)"/>
+  <br />
+  <div class="progress" ng-if="fileUpCtrl.showProgressBar">
+    <div class="progress-bar progress-bar-striped active" id="progressbar" role="progressbar" style="width:0%">
+      {{fileUpCtrl.showProgressWidth}}%
+    </div>
   </div>
-</div>
-<hr />
-<div ng-if="showUploadBtn"> 
-    <button type="button" ng-click="openModal('sm')">Upload</button>
+  <hr />
+  <div ng-if="fileUpCtrl.showUploadBtn">
+    <modal 
+    id="modal1" 
+    file-name="fileUpCtrl.fileName" />
+    <a href="#{{modal1}}" role="button" 
+    class="btn btn-success" data-toggle="modal">Upload</a>
+  </div>
 </div>

@@ -1,11 +1,23 @@
-
-<div class="modal-body" style="text-align: center">
-    <h3 class="modal-title">Customer</h3>
-    <img class="userIcon" src="images/user.png" />
-    <p>Parsing...</p>
-    {{fileName}}....<img class="loaderImg" ng-if="showLoader" src="../images/loader.gif"/>
-    <div ng-if="showMsg">{{successParseMsg}}</div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+<div id="{{handler}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Customer <span class="glyphicon glyphicon-user"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div ng-if="!showMsg">
+                  <p>{{fileName}} Parsing...</p>
+                  <img class="loaderImg" src="../images/loader.gif"/>
+                </div>
+                <div ng-if="showMsg" class="alert alert-success">
+                  <strong>Success!</strong> File {{fileName}} parsed successfully.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+               
+            </div>
+        </div>
+    </div>
 </div>

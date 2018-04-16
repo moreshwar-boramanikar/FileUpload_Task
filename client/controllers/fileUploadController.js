@@ -1,83 +1,61 @@
 app.controller("fileUploadController",function($scope,$timeout,$uibModal){
-    $scope.showUploadBtn = false;
-    $scope.showProgressBar = false;
-    var csvColumns = [];
-    var records = [];
+    
+    var _this = this;
+    _this.showUploadBtn = false;
+    _this.showProgressBar = false;
+   
+    var jsonObj = [];
     //function to accept csv file
     $scope.parseCsvFile = function(evt){
-        //this show progress bar after file is selected
         $scope.$apply(function() {
-            $scope.showProgressBar = true;
+            _this.showProgressBar = true;
         });
-        var files = evt.files;
-        var csvFile = files[0];
-        $scope.fileName = csvFile.name;
+        var elem = angular.element(document.getElementById("progressbar"));
+        var files = evt.files[0];
+        _this.fileName = files.name;
+        
         var readCsv = new FileReader();
+        var rowCount = 0;    
         //reads the file onload & pass one by one records to parseJSON() to for JSON object of each record
         readCsv.onload = function(event) {    
-            const record = this.result.split('\n');
-            csvColumns = record[0].split(",");
-            for(var rec = 1; rec < record.length; rec++){
-                parseJSON(record[rec]);
-                //show % on progress bar dynamically as per records being processed
-                $scope.$apply(function() {
-                    $scope.showProgressWidth = Math.floor(rec/(record.length-1)*100);
-                });  
-                moveProgressBar(rec,record.length);
-            }         
-        }
-        readCsv.readAsText(csvFile);
-    }
-    //creates JSON obj for each record
-    function parseJSON(record){
-        record = record.split(",");
-        var parsedJsonObj={};
-        for(var i in csvColumns){
-            parsedJsonObj[csvColumns[i]] = record[i];
-        }
-        records.push(parsedJsonObj);
-    }
-    //calculate  width(in %) of progress bar dynamically as per records being processed
-    function moveProgressBar(wdt,len) {
-        var elem = document.getElementById("abc");
-        var width = Math.floor(wdt/(len-1)*100);  
-        $(function() {
-            $("#progressbar").width(width +'%');
-            $("#progressbar").html(width +'%');
-          });
-        // elem.style.width = width + '%'; 
-        // elem.innerHTML = width * 1  + '%';
-        if(width == 100){
-            $scope.$apply(function() {
-                $scope.showUploadBtn = true;
+            const record = this.result.split('\n').length;
+            Papa.parse(files, {
+                header: true,
+                worker:true,
+                step: function(results) {
+                    $timeout( function(){
+                        jsonObj.push(results.data[0]);
+                        // console.log(jsonObj);
+                        var per = Math.round((rowCount++)/record*100);
+                        elem[0].style.width = per + '%'; 
+                        elem[0].innerHTML = per + '%';
+                        if(per == 100)
+                        {
+                            _this.showUploadBtn = true;
+                        }
+                    }, 500);
+                }
             });
         }
-      }
-      //opens modal on upload button to show JSON data is parsing
-      $scope.openModal = function (size) {
-        var modalInstance = $uibModal.open({
-          templateUrl: 'views/showModal.html',
-          controller: 'ModalController',
-          size:size,
-          resolve: {
-            data: function () {
-              return $scope.fileName;
-            }
-          }})};
+        readCsv.readAsText(files);
+    }
 });
-//controller for Modal
-app.controller('ModalController', function ($scope,$timeout,$uibModalInstance, data) {
-    $scope.fileName = data;
-    
-    $scope.showLoader = true;
-        $timeout( function(){
-            $scope.showLoader = false;
-            $scope.showMsg = true;
-            $scope.successParseMsg = "File Parsed Successfully!";
-        }, 5000 );
-    
-    $scope.ok = function () {
-      $uibModalInstance.close();
+
+app.directive('modal', function () {
+    return {
+        restrict: 'E',
+        scope: { 
+            fileName:'=fileName',
+            handler: '=id'
+        },
+        templateUrl: '../views/showModal.html',
+        transclude: true,
+        controller: function ($scope,$timeout) {
+            $scope.handler = 'modal'; 
+            $scope.showMsg =false;
+            $timeout( function(){
+                $scope.showMsg = true;
+            },8000 );
+        },
     };
-  });
-  
+});
