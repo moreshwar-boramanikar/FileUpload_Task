@@ -1,20 +1,15 @@
 # FileUpload_Task
 
-##Steps to run FileUpload_Task locally
+## Steps to run FileUpload_Task locally
 
-###Checkout code
 
-```
-run npm install command where package.json is present to install gulp/project related dependencies
-```
 
 ```
-inside client directory run bower install command to install project dependencies
-```
-
-```
-to execute project run gulp command where gulpfile.js is present
-then browse URL {{PORT}}/#/ OR {{PORT}}/#/fileUpload
+1- Checkout code
+2- Run npm install command where package.json is present to install gulp/project related dependencies
+3- inside client directory run bower install command to install project dependencies
+4- To execute the application, run gulp command where gulpfile.js is present
+5- Then browse URL {{PORT}}/#/ OR {{PORT}}/#/fileUpload
 ```
 
 ```
