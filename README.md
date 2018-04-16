@@ -1,11 +1,22 @@
 # FileUpload_Task
 
-Running FileUpload_Task locally
+##Steps to run FileUpload_Task locally
 
-live-server is used to run this project locally for that install live server using(command - npm install -g live-server)
+###Checkout code
 
-check out the code
+```
+run npm install command where package.json is present to install gulp/project related dependencies
+```
 
-inside client dir execute command - live-server OR live-server --port=3000
- 
-once application gets started browse the url - {PORT}/#/fileUpload i.e. http://127.0.0.1:3000/#/fileUpload in browser
+```
+inside client directory run bower install command to install project dependencies
+```
+
+```
+to execute project run gulp command where gulpfile.js is present
+then browse URL {{PORT}}/#/ OR {{PORT}}/#/fileUpload
+```
+
+```
+Note - live server is used to execute application which configured inside gulpfile
+```
